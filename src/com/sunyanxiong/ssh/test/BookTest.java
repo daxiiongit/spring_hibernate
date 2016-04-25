@@ -1,7 +1,5 @@
 package com.sunyanxiong.ssh.test;
 
-import static org.junit.Assert.*;
-
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -10,17 +8,28 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class SpringHibernateTest {
+import com.sunyanxiong.ssh.service.BookService;
 
+public class BookTest {
+	
 	private ApplicationContext ctx = null;
+	private BookService bookService = null;
+	
 	{
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		bookService = ctx.getBean(BookService.class);
 	}
 	
 	@Test
 	public void testDataSource() throws SQLException {
 		DataSource dataSource = ctx.getBean(DataSource.class);
 		System.out.println(dataSource.getConnection());
+	}
+	
+	@Test
+	public void testFindPriceByIsbn(){
+		String price = bookService.findPriceByIsbn("123456");
+		System.out.println(price);
 	}
 
 }

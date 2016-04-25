@@ -1,0 +1,42 @@
+spring 整合 hibernate.
+	整合的目的：①使用spring 的 IoC容器来管理 hibernate 的 SessionFactory ② 让hibernate 来使用spring的声明式事务.
+一、配置hibernate
+1.导入hibernate 相关的jar包，以及mysql驱动和c3p0 连接池jar包.
+2.加入hibernate.cfg.xml配置文件。此处只配置sql显示和格式化sql，数据库方言等信息，其他的连接数据源和SessionFactory在spring中配置。
+3.创建相应的实体类，并使用注解的方式将表表关系配置。
+
+二、配置spring
+1.导入spring相关jar包。
+2.加入applicationContext.xml配置文件。配置连接数据库的数据源和SessionFactory。
+	1).使用外部文件的方式配置数据源，即db.properties 文件.
+	2).扫描实体类的两种方式：
+	   ① <property name="annotatedClasses">
+			<list>
+				<value>com.sunyanxiong.ssh.entities.Account</value>
+				<value>com.sunyanxiong.ssh.entities.Book</value>
+			</list>
+		</property>
+	   ② <property name="packagesToScan" value="com.sunyanxiong.ssh.entities"/>
+3.创建测试类，使用JUnit测试在数据库中自动生成对应的表。
+
+4.Spring hibernate 事务的流程
+	 * 
+	 * 1. 在方法开始之前
+	 * ①. 获取 Session
+	 * ②. 把 Session 和当前线程绑定, 这样就可以在 Dao 中使用 SessionFactory 的
+	 * getCurrentSession() 方法来获取 Session 了
+	 * ③. 开启事务
+	 * 
+	 * 2. 若方法正常结束, 即没有出现异常, 则
+	 * ①. 提交事务
+	 * ②. 使和当前线程绑定的 Session 解除绑定
+	 * ③. 关闭 Session
+	 * 
+	 * 3. 若方法出现异常, 则:
+	 * ①. 回滚事务
+	 * ②. 使和当前线程绑定的 Session 解除绑定
+	 * ③. 关闭 Session
+	 *
+	 
+5.hibernate配置文件中hibernate.cfg.xml中配置自动生成表类型为update;
+6.使用IoC容器自动装配bean.注意hibernate查询返回的结果集的类型.
