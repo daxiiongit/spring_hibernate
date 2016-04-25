@@ -11,7 +11,7 @@ public class Account {
 
 	private int id;
 	private String username;
-	private String blance;
+	private String balance;
 
 	@Id
 	@GeneratedValue
@@ -23,8 +23,8 @@ public class Account {
 		return username;
 	}
 
-	public String getBlance() {
-		return blance;
+	public String getBalance() {
+		return balance;
 	}
 
 	public void setId(int id) {
@@ -35,8 +35,8 @@ public class Account {
 		this.username = username;
 	}
 
-	public void setBlance(String blance) {
-		this.blance = blance;
+	public void setBalance(String balance) {
+		this.balance = balance;
 	}
 
 }

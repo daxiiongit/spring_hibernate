@@ -1,6 +1,8 @@
 package com.sunyanxiong.ssh.service;
 
 public interface BookService {
-	// 通过书的编号查找书的价格
-	public String findPriceByIsbn(String isbn);
+	
+	// 用户购买书
+	public void purchase(String username,String isbn);
+	
 }

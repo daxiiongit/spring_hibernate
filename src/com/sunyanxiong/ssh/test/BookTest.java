@@ -27,9 +27,9 @@ public class BookTest {
 	}
 	
 	@Test
-	public void testFindPriceByIsbn(){
-		String price = bookService.findPriceByIsbn("123456");
-		System.out.println(price);
+	public void testBookService(){
+		bookService.purchase("sunyanxiong", "2020");
 	}
+	
 
 }

@@ -13,8 +13,10 @@ public class BookServiceImpl implements BookService {
 	private BookDao bookDao;
 	
 	@Override
-	public String findPriceByIsbn(String isbn) {
-		return bookDao.findPriceByIsbn(isbn);
+	public void purchase(String username, String isbn) {
+		int price = bookDao.findPriceByIsbn(isbn);
+		bookDao.updateBookStock(isbn);
+		bookDao.updateUserAccount(username, price);
 	}
 
 }
